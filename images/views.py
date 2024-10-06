@@ -63,10 +63,12 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect("image_list")
+            next_url = request.GET.get('next', 'image_list')
+            return redirect(next_url)
     else:
         form = AuthenticationForm()
     return render(request, "login.html", {"form": form})
+
 
 
 def logout_view(request):
